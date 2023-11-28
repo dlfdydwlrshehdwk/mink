@@ -29,6 +29,7 @@
               <!-- 여기에 이동걸어야됨 -->
                 <tr class="content" v-for="(x,i) in list" :key="i">
                   <td>
+                    <!-- 라우터 파람쓰로 값 넘겨주기 -->
                     <router-link v-bind:to="'/company/' + textTrim(x.WINE)">{{ x.WINE }}</router-link>
                     </td>
                   <td>{{ x.PRODUCER }}</td>
@@ -87,7 +88,7 @@ export default {
         else{rows[i].style.display = 'none'}
       }
     },
-    // 공백제거 메소드
+    // 공백 과 / 제거 메소드 // 설명 company에 적어놈
     textTrim(x){
       let text = x.replace(/(\s*)/g, "")
       if(text.split('/').length - 1 >= 1){
@@ -135,7 +136,7 @@ export default {
     
   },
   created() {
-    // 3중포문.
+    // 3중포문 // 설명은 company.vue에 
     let a = [];
     let b = [];
     this.DataWineList.forEach((ele)=>{
@@ -144,6 +145,7 @@ export default {
     for(let x of a){
       b.push(...x.LIST)
     }
+  
     this.list = b
   },
 }

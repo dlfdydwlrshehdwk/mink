@@ -6,7 +6,8 @@
         <div class="wines-wrap">
           <div class="wines-list">
             <ul class="item-list">
-              <li v-for="x in data" :key="x">
+              <!-- 태그가 달라질텐데 반복문 쓰면 안될듯... -->
+              <li v-for="(x,i) in data" :key="i">
                 {{ x.a}} : {{ x.b }}
               </li>
             </ul>
@@ -25,16 +26,10 @@
     <section class="company" id="company">
       <div class="company-left">
         <div class="company-text">
-          <h2>Ada Wines</h2>
-          <h4>Australia</h4>
+          <h2>{{ data[2].b }}</h2>
+          <h4>{{ data[3].b }}</h4>
           <p class="story-1">
-            Ada is the passion project for James Ellis, who also works full time with Gareth Belton of Gentle Folk in the Adelaide Hills. Ada is a relative newcomer to the South Australian wine scene with their first release being born of the 2018 vintage. A viticulturist at heart James is firmly of the belief that all of his wines are made in the vineyard and he is meticulous with his approach to organics across the sites he manages for Ada and Gareth. Before starting Ada, James had worked his way through many of the nations iconic regions with time spent in vineyard and cellar in the Barossa Valley working for Penfolds, Hunter Valley and McLaren Vale where he met James Erskine of Jauma who introduced him to Gareth.
-          </p>
-          <p class="story-2">
-            Now James has purchased a house in the Barossa and will continue to work in the hills while sourcing precious small parcels from across South Australia. He crafts wines that are truly expressive of the regions they come from whilst also being produced from the grapes that he loves to drink. Skinsy Eden Riesling, McLaren Vale Grenache, Piccadilly Valley Chardonnay, Basket Range Pinot Noir and Barossa Grenache with more to come as James finds his groove and grows. All Ada grapes are from small growers who farm the land respectively and organically. While winemaking is fairly hands off with the only additions being minimal amounts of SO2 when it is necessary.
-          </p>
-          <p class="story-3">
-            James’ 2021 release is stellar. All five wines are looking great and will continue to evolve across the year. We are thrilled to be working together and cant wait to watch Ada grow into one of the regions most exciting producers.
+            {{ data[7].b }}
           </p>
         </div>
         <span class="btn-line readBtn">READ MORE</span>
@@ -58,7 +53,9 @@ export default {
   data(){
     return{
       list : null,
+      // 섹션1 사용할 데이터 담을거
       data : null,
+      // 라우터 주소 /:id 받아온거
       routeParmasId : this.$route.params.id,
     } 
   },
@@ -67,35 +64,48 @@ export default {
   methods : {
     // 공백제거 메소드
     textTrim(x){
+      // 정규식을 이용한 공백제거 
       let text = x.replace(/(\s*)/g, "")
+      // / 가 있는지 체크 
       if(text.split('/').length - 1 >= 1){
+        // 있으면 / 를 다 지움
         text = text.replaceAll('/')
         return text;
       } else {
+        // 없으면 공백만 제거해서 리턴
         return text;
       }
     }
   },
   created() {
     // 3중포문.
+
+    // 빈 배열 만들어줌
     let a = [];
     let b = [];
+    // 배열 한번 벗김
     this.DataWineList.forEach((ele)=>{
       a.push(...ele.data)
     })
+    // 아마 객체인가 그래서 배열화 시킴
     for(let x of a){
       b.push(...x.LIST)
     }
     this.list = b
 
+
+    // 누른놈이랑 같은이름 있으면 그놈 데이터 가져옴
     b.forEach((ele)=>{
+      // 비교
       if(this.textTrim(ele.WINE) == this.routeParmasId){
+        // 객체데이터여서 빈 배열 만들어서 data()에 있는 애한테 담기위해 만듬
         let arr = []
+        // 이름 : 값 으로 배열화 
         for(let x in ele){
           let data = { a : x, b : ele[x]}
           arr.push(data)
         }
-        // 템플릿에서 사용할 데이터
+        // 템플릿에서 사용할 데이터에 담음
         this.data = arr
       }
     })
