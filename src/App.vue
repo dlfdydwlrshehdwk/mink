@@ -11,7 +11,8 @@
 import DataWineList from './assets/data/DataWineList';
 import DataWine from './assets/data/DataWine';
 import DataContact from './assets/data/DataContact';
-import comMenu from './components/com-Menu.vue'
+import comMenu from './components/com-Menu.vue';
+import './assets/css/style.css'
 
 export default {
   name: 'App',

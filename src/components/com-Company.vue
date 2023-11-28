@@ -6,10 +6,8 @@
         <div class="wines-wrap">
           <div class="wines-list">
             <ul class="item-list">
-              <li class="item" v-for="(ele,idx) in DataWineList" :key="idx">
-                <h3>{{ idx }}</h3>
-                <h4></h4>
-                <span></span>
+              <li v-for="x in data" :key="x">
+                {{ x.a}} : {{ x.b }}
               </li>
             </ul>
           </div>
@@ -20,7 +18,7 @@
       </div>
       <div class="wines-right">
         <div class="wines-imgBox">
-          <!-- <img src="" alt="wines"> -->
+          <img src="" alt="wines">
         </div>
       </div>
     </section>
@@ -59,13 +57,49 @@
 export default {
   data(){
     return{
-      
-    }
+      list : null,
+      data : null,
+      routeParmasId : this.$route.params.id,
+    } 
   },
   components:{},
-  props:{
-    DataWineList:Object
-  }
+  props:['DataWineList'],
+  methods : {
+    // 공백제거 메소드
+    textTrim(x){
+      let text = x.replace(/(\s*)/g, "")
+      if(text.split('/').length - 1 >= 1){
+        text = text.replaceAll('/')
+        return text;
+      } else {
+        return text;
+      }
+    }
+  },
+  created() {
+    // 3중포문.
+    let a = [];
+    let b = [];
+    this.DataWineList.forEach((ele)=>{
+      a.push(...ele.data)
+    })
+    for(let x of a){
+      b.push(...x.LIST)
+    }
+    this.list = b
+
+    b.forEach((ele)=>{
+      if(this.textTrim(ele.WINE) == this.routeParmasId){
+        let arr = []
+        for(let x in ele){
+          let data = { a : x, b : ele[x]}
+          arr.push(data)
+        }
+        // 템플릿에서 사용할 데이터
+        this.data = arr
+      }
+    })
+  },
 }
 </script>
 

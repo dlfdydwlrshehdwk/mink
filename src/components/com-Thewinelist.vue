@@ -7,6 +7,7 @@
           <label class="search-label" for="search" v-on:click="searchClick()">SEARCH</label>
           <input id="search" class="search-input" type="text"  v-on:keyup="filterTable()">
         </div>
+
         <div class="table-wrap">
           <table class="table">
             <thead>
@@ -25,20 +26,17 @@
               </tr>
             </thead>
             <tbody>
-
-              <template  v-for="country in DataWineList">
-                <template v-for="company in country">
-                  <tr class="content" v-for="(ele,idx) in company.LIST" :key="idx">
-                    <td>{{ ele.WINE }}</td>
-                    <td>{{ ele.PRODUCER }}</td>
-                    <td>{{ ele.COUNTRY }}</td>
-                    <td>{{ ele.REGION }}</td>
-                    <td>{{ ele.VARIETY }}</td>
-                    <td>{{ ele.STYLE }}</td>
-                  </tr>
-                </template>
-              </template>
-
+              <!-- 여기에 이동걸어야됨 -->
+                <tr class="content" v-for="(x,i) in list" :key="i">
+                  <td>
+                    <router-link v-bind:to="'/company/' + textTrim(x.WINE)">{{ x.WINE }}</router-link>
+                    </td>
+                  <td>{{ x.PRODUCER }}</td>
+                  <td>{{ x.COUNTRY }}</td>
+                  <td>{{ x.REGION }}</td>
+                  <td>{{ x.VARIETY }}</td>
+                  <td>{{ x.STYLE }}</td>
+                </tr>
             </tbody>
           </table>
         </div>
@@ -51,14 +49,10 @@
 export default {
   data(){
     return{
-      country:null,
-      company:null,
-      wine:null
+      list : null,
     }
   },
-  props : {
-    DataWineList : Array
-  },
+  props : ['DataWineList'],
   methods : {
     searchClick(){
       const searchInput = document.querySelector('.search-input');
@@ -91,6 +85,16 @@ export default {
         Col5.indexOf(filter) > -1
         ){rows[i].style.display = ''}
         else{rows[i].style.display = 'none'}
+      }
+    },
+    // 공백제거 메소드
+    textTrim(x){
+      let text = x.replace(/(\s*)/g, "")
+      if(text.split('/').length - 1 >= 1){
+        text = text.replaceAll('/')
+        return text;
+      } else {
+        return text;
       }
     }
   },
@@ -131,11 +135,16 @@ export default {
     
   },
   created() {
-    console.log(this.DataWineList.length);
-
+    // 3중포문.
+    let a = [];
+    let b = [];
     this.DataWineList.forEach((ele)=>{
-      console.log(ele);
+      a.push(...ele.data)
     })
+    for(let x of a){
+      b.push(...x.LIST)
+    }
+    this.list = b
   },
 }
 </script>

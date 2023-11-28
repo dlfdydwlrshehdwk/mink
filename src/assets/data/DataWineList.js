@@ -4992,7 +4992,8 @@ const DataWineList = [
   },
   {
     country: "NEW ZEALAND",
-    data: {
+    data: [
+      {
       name: "Tincan Wines",
       COMPANY_ID: 0,
       COMPANY_IMG: "./images/Tincan Wines/company.jpg",
@@ -5057,11 +5058,13 @@ const DataWineList = [
           IMG: "./images/Tincan Wines/Cult-Crimson.jpg",
         },
       ],
-    },
+    }
+  ],
   },
   {
     country: "UNITED STATES",
-    data: {
+    data: [
+      {
       name: "Hermann J. Wiemer",
       COMPANY_ID: 0,
       COMPANY_IMG: "./images/Hermann J. Wiemer/company.jpg",
@@ -5114,7 +5117,8 @@ const DataWineList = [
           IMG: "./images/Hermann J. Wiemer/Late-Harvest-Riesling.jpg",
         },
       ],
-    },
+    }
+  ],
   },
 ];
 
