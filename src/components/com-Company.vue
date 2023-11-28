@@ -80,7 +80,7 @@ export default {
   },
   created() {
     // 3중포문.
-
+    
     // 빈 배열 만들어줌
     let a = [];
     let b = [];
@@ -110,18 +110,6 @@ export default {
         this.data = arr
       }
     })
-
-
-    let qqq=[];
-    // console.log(this.DataWineList.length)
-    // let qwer;
-    for(let i = 0; i< this.DataWineList.length;i++){
-      this.a = this.DataWineList[i].data.length;
-      console.log(this.a)
-
-      qqq.push(this.a);
-    }
-    console.log(qqq)
   },
 }
 </script>
