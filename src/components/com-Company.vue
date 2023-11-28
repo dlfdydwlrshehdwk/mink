@@ -57,6 +57,7 @@ export default {
       data : null,
       // 라우터 주소 /:id 받아온거
       routeParmasId : this.$route.params.id,
+      a : null
     } 
   },
   components:{},
@@ -109,6 +110,18 @@ export default {
         this.data = arr
       }
     })
+
+
+    let qqq=[];
+    // console.log(this.DataWineList.length)
+    // let qwer;
+    for(let i = 0; i< this.DataWineList.length;i++){
+      this.a = this.DataWineList[i].data.length;
+      console.log(this.a)
+
+      qqq.push(this.a);
+    }
+    console.log(qqq)
   },
 }
 </script>
